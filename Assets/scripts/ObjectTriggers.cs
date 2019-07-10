@@ -13,7 +13,7 @@ public class ObjectTriggers : MonoBehaviour
     [SerializeField]
     internal bool forLandscape = false;
     [SerializeField]
-        internal bool forPlayer = false;
+    internal bool forPlayer = false;
 
 
 
