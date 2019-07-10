@@ -9,19 +9,11 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField]
     internal Vector3 spawnPos;
     [SerializeField]
-    internal GameObject obstacle1;
-    [SerializeField]
-    internal GameObject obstacle2;
-    [SerializeField]
     internal bool forGround = false;
     [SerializeField]
     internal bool forLandscape = false;
 
-    private void Start()
-    {
-        obstacle1.SetActive(false);
-        obstacle1.SetActive(false);
-    }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,7 +21,7 @@ public class ObjectSpawner : MonoBehaviour
         if(collision.tag == "ground" && forGround)
         {
             collision.transform.position += spawnPos;
-            GenerateObstacle();
+            GenerateObstacle(collision.GetComponent<Obstacles>().obstacles[0], collision.GetComponent<Obstacles>().obstacles[1]);
         }
 
         if (collision.tag == "landscape" && forLandscape)
@@ -39,11 +31,20 @@ public class ObjectSpawner : MonoBehaviour
 
     }
 
-    private void GenerateObstacle()
+    private void GenerateObstacle(GameObject obstacle1, GameObject obstacle2)
     {
+
         int i = Convert.ToInt32(Random.Range(1, 5));
-        if (i == 1) obstacle1.SetActive(true);
-        else if(i==2) obstacle2.SetActive(true);
+        Debug.Log(i);
+        if (i == 1) { obstacle1.SetActive(true); }
+        Debug.Log(i);
+        if(i==2) obstacle2.SetActive(true);
+
+        if(i > 2)
+        {
+            obstacle1.SetActive(false);
+            obstacle2.SetActive(false);
+        }
        
 
     }
