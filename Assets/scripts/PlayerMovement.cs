@@ -32,25 +32,21 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("jumpUp", true);
                 anim.SetBool("jumpDown", false);
             }
-            
         }
         else
         {
             anim.SetBool("jumpUp", false);
             anim.SetBool("jumpDown", false);
         }
-
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsOnGround)
+        if ((Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButton(0)) && IsOnGround)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpSpeed);
         }
     }
-
-
 
     public bool IsOnGround
     {
