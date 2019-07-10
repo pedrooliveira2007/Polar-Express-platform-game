@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1294738646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 141.51, y: -148.79, z: -1.5788}
-  m_LocalScale: {x: 336.85034, y: 219.08965, z: 219.08965}
+  m_LocalScale: {x: 336.8503, y: 219.08965, z: 219.08965}
   m_Children:
   - {fileID: 2745311460436462746}
   - {fileID: 8901014091919757433}
@@ -233,11 +233,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794230997266015101, guid: 62f500ee7040a404e97d09121f889eae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 649772139824278595, guid: 62f500ee7040a404e97d09121f889eae,
         type: 3}

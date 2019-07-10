@@ -25,17 +25,20 @@ public class ObjectTriggers : MonoBehaviour
             GenerateObstacle(collision.GetComponent<Obstacles>().obstacles[0], collision.GetComponent<Obstacles>().obstacles[1]);
         }
 
-        if (collision.tag == "landscape" && forLandscape)
+        else if (collision.tag == "landscape" && forLandscape)
         {
             collision.transform.position += spawnPos;
         }
 
-
-        if (collision.tag == "Player" && forPlayer)
+        else if (collision.tag == "Player" && forPlayer && tag == "obstacle")
         {
-            SceneManager.LoadScene("main");
+            collision.GetComponent<PlayerSettings>().hp -= 1;
         }
 
+        if (collision.tag == "Player" && forPlayer && tag != "obstacle")
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     private void GenerateObstacle(GameObject obstacle1, GameObject obstacle2)
