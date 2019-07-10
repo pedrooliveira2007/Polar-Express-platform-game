@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ObjectSpawner : MonoBehaviour
+public class ObjectTriggers : MonoBehaviour
 {
     [SerializeField]
     internal Vector3 spawnPos;
@@ -12,7 +12,8 @@ public class ObjectSpawner : MonoBehaviour
     internal bool forGround = false;
     [SerializeField]
     internal bool forLandscape = false;
-
+    [SerializeField]
+        internal bool forPlayer = false;
 
 
 
@@ -27,6 +28,12 @@ public class ObjectSpawner : MonoBehaviour
         if (collision.tag == "landscape" && forLandscape)
         {
             collision.transform.position += spawnPos;
+        }
+
+
+        if (collision.tag == "Player" && forPlayer)
+        {
+            SceneManager.LoadScene("main");
         }
 
     }
