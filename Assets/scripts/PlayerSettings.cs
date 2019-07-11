@@ -51,8 +51,6 @@ public class PlayerSettings : MonoBehaviour
 
         }
 
-
-
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && IsOnGround)
