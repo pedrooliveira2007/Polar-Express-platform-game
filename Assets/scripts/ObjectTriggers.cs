@@ -19,11 +19,19 @@ public class ObjectTriggers : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "ground" && forGround)
+        if (collision.tag == "ground" && forGround)
         {
             collision.transform.position += spawnPos;
-            GenerateObstacle(collision.GetComponent<Obstacles>().obstacles[0], collision.GetComponent<Obstacles>().obstacles[1]);
+            GenerateObstacle(collision.GetComponent<Obstacles>().obstacles);
         }
+
+        if (collision.tag == "test")
+        {
+            collision.transform.position += spawnPos;
+            GenerateObstacle(collision.GetComponent<Obstacles>().obstacles);
+        }
+
+
 
         else if (collision.tag == "landscape" && forLandscape)
         {
@@ -35,27 +43,46 @@ public class ObjectTriggers : MonoBehaviour
             collision.GetComponent<PlayerSettings>().hp -= 1;
         }
 
-        if (collision.tag == "Player" && forPlayer && tag != "obstacle")
+        else if (collision.tag == "Player" && forPlayer && tag != "obstacle")
         {
-            SceneManager.LoadScene("GameOver");
+            if (tag == "hp")
+            {
+                collision.GetComponent<PlayerSettings>().hp += 1;
+                gameObject.SetActive(false);
+            }
+            if (tag == "gizo")
+            {
+                collision.GetComponent<PlayerSettings>().points += 500;
+                gameObject.SetActive(false);
+            }
+            if (tag == "mug")
+            {
+                collision.GetComponent<PlayerSettings>().points += 200;
+                gameObject.SetActive(false);
+            }
+            if (tag == "gameover") { SceneManager.LoadScene("GameOver"); }
         }
     }
 
-    private void GenerateObstacle(GameObject obstacle1, GameObject obstacle2)
+    private void GenerateObstacle(GameObject[] obstacle)
     {
-
-        int i = Convert.ToInt32(Random.Range(1, 5));
+        int i = Convert.ToInt32(Random.Range(1, 6));
         Debug.Log(i);
-        if (i == 1) { obstacle1.SetActive(true); }
-        Debug.Log(i);
-        if(i==2) obstacle2.SetActive(true);
+        if (i == 1) { obstacle[0].SetActive(true); }
+        if (i == 2) obstacle[1].SetActive(true);
 
-        if(i > 2)
+        if (i == 3 && obstacle.Length > 2)
         {
-            obstacle1.SetActive(false);
-            obstacle2.SetActive(false);
+            Debug.Log("aaaaaa");
+            obstacle[2].SetActive(true);
         }
-       
 
+        if (i > 3)
+        {
+            foreach (GameObject g in obstacle)
+            {
+                g.SetActive(false);
+            }
+        }
     }
 }

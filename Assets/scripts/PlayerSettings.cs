@@ -8,32 +8,51 @@ using UnityEngine.SceneManagement;
 public class PlayerSettings : MonoBehaviour
 {
     [SerializeField]
-    internal float moveSpeed = 10;
+    internal float moveSpeed = 300;
     [SerializeField]
-    internal float jumpSpeed = 10;
+    internal float jumpSpeed = 300;
     [SerializeField]
     internal float jumpTime = 0.5f;
 
     internal float jumpTimeCounter;
     private TextMeshProUGUI hpNum;
+    private TextMeshProUGUI ptNum;
 
     [SerializeField]
     internal int hp = 3;
-
+    [SerializeField]
+    internal int points = 0;
+    private Vector3 holdPos;
 
     private Rigidbody2D rigid;
     private Animator anim;
 
     void Start()
     {
-        hpNum = GameObject.Find("TextMeshPro Text").GetComponent<TextMeshProUGUI>();
+        ptNum = GameObject.Find("points").GetComponent<TextMeshProUGUI>();
+        hpNum = GameObject.Find("life").GetComponent<TextMeshProUGUI>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         jumpTimeCounter = jumpTime;
+        holdPos = transform.position;
     }
 
     void Update()
     {
+        if (holdPos.x + 1000 < transform.position.x && moveSpeed < 600)
+        {
+            holdPos = transform.position;
+
+            Debug.Log("speed  " + moveSpeed);
+            moveSpeed += 10;
+            jumpSpeed += 5;
+            jumpTime -= 0.00003f;
+            rigid.gravityScale += 5;
+
+        }
+
+
+
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && IsOnGround)
@@ -79,7 +98,8 @@ public class PlayerSettings : MonoBehaviour
 
     private void FixedUpdate()
     {
-        hpNum.text = "X "+hp;
+        ptNum.text = "points " + points;
+        hpNum.text = "X " + hp;
         if (hp <= 0)
         {
             SceneManager.LoadScene("GameOver");
